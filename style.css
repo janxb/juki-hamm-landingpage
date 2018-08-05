@@ -6,12 +6,22 @@
     }
 }
 
+@media (max-width: 575px) {
+    .logo img {
+        margin-top: 10px;
+    }
+}
+
 .content {
     padding: 30px;
     text-align: center;
 }
 
-.buttons-only a {
+.content a {
     display:block;
     margin-bottom:10px;
+}
+
+.content a i {
+    margin-right: 5px;
 }
