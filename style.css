@@ -1,0 +1,17 @@
+@media (min-width: 576px) {
+    .vertical-center {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.content {
+    padding: 30px;
+    text-align: center;
+}
+
+.buttons-only a {
+    display:block;
+    margin-bottom:10px;
+}
