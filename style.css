@@ -31,7 +31,16 @@
     color: white !important;
 }
 
+.custom-btn-facebook:focus, .custom-btn-facebook.focus {
+    box-shadow: 0 0 0 0.2rem rgba(42, 63, 109, 0.25) !important;
+    color: white !important;
+}
+
 .custom-btn-instagram, .custom-btn-instagram:hover, .custom-btn-instagram:active, .custom-btn-instagram:visited {
     background-color: #bc2a8d !important;
     color: white !important;
+}
+
+.custom-btn-instagram:focus, .custom-btn-instagram.focus {
+    box-shadow: 0 0 0 0.2rem rgba(159, 35, 119, 0.25) !important;
 }
