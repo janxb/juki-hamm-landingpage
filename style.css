@@ -26,6 +26,7 @@
     margin-right: 5px;
 }
 
+/** custom button shadows: inactive background color made 15% darker using https://pinetools.com/darken-color **/
 .custom-btn-facebook, .custom-btn-facebook:hover, .custom-btn-facebook:active, .custom-btn-facebook:visited {
     background-color: #3b5998 !important;
     color: white !important;
