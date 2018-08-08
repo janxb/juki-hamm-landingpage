@@ -18,10 +18,20 @@
 }
 
 .content a {
-    display:block;
-    margin-bottom:10px;
+    display: block;
+    margin-bottom: 10px;
 }
 
 .content a i {
     margin-right: 5px;
+}
+
+.custom-btn-facebook, .custom-btn-facebook:hover, .custom-btn-facebook:active, .custom-btn-facebook:visited {
+    background-color: #3b5998 !important;
+    color: white !important;
+}
+
+.custom-btn-instagram, .custom-btn-instagram:hover, .custom-btn-instagram:active, .custom-btn-instagram:visited {
+    background-color: #bc2a8d !important;
+    color: white !important;
 }
