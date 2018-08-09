@@ -1,3 +1,11 @@
+[v-cloak] {
+    display: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 @media (min-width: 576px) {
     .vertical-center {
         min-height: 100vh;
@@ -14,6 +22,10 @@
 
 .container {
     max-width: 500px;
+}
+
+.logo img {
+    width: 100%;
 }
 
 .content {
