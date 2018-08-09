@@ -12,6 +12,10 @@
     }
 }
 
+.container {
+    max-width: 500px;
+}
+
 .content {
     padding: 30px;
     text-align: center;
