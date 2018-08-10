@@ -8,6 +8,9 @@ $("document").ready(function () {
                 calendar: false
             },
             calendar: {
+                config: {
+                    maxOneTimeEventCount: 5
+                },
                 recurringEvents: [
                     {
                         title: "JuKi-Treff",
@@ -57,16 +60,18 @@ $("document").ready(function () {
                 }
             },
             fetchCalendarImages: function () {
-                this.calendar.oneTimeEvents = [];
+                var events = [];
                 $.get('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/category/jugendkirche/', function (data) {
                     $("article", data).each(function (i, article) {
-                        app.calendar.oneTimeEvents.push({
+                        events.push({
                             id: Math.random().toString(36).substr(2, 9),
                             image: $(article).find("img").attr('src'),
                             title: $(article).find(".post-content .entry-title a").html()
                         });
                     });
+                    app.calendar.oneTimeEvents = events.slice(0, app.calendar.config.maxOneTimeEventCount);
                 });
+
             }
         },
         watch: {
