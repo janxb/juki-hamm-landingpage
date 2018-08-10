@@ -24,7 +24,13 @@ $("document").ready(function () {
                         description: "Du hast Lust im Jugendgottesdienst Musik zu machen, oder interessierst dich für Ton- und Lichttechnik? Dann bist du bei uns richtig! Wir sind jeden Donnerstag von 16-18 Uhr in der Jugendkirche und geben dir Raum zum Lernen und Ausprobieren.",
                         responsible: "Tobias Pälmke und Ulrike Egermann"
                     }
-                ]
+                ],
+                oneTimeEvents: []
+            }
+        },
+        computed: {
+            viewCalendar: function () {
+                return this.views.calendar;
             }
         },
         methods: {
@@ -49,9 +55,27 @@ $("document").ready(function () {
                         null, window.location.hash.replace('#', '')
                     );
                 }
+            },
+            fetchCalendarImages: function () {
+                this.calendar.oneTimeEvents = [];
+                $.get('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/category/jugendkirche/', function (data) {
+                    $("article", data).each(function (i, article) {
+                        app.calendar.oneTimeEvents.push({
+                            id: Math.random().toString(36).substr(2, 9),
+                            image: $(article).find("img").attr('src'),
+                            title: $(article).find(".post-content .entry-title a").html()
+                        });
+                    });
+                });
             }
         },
-        watch: {},
+        watch: {
+            viewCalendar: function (viewCalendar) {
+                if (viewCalendar) {
+                    this.fetchCalendarImages();
+                }
+            }
+        },
         mounted() {
             if (!window.location.hash) {
                 window.location.hash = 'dummy';

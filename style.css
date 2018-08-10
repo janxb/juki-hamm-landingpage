@@ -31,6 +31,10 @@
     max-width: 500px;
 }
 
+.view {
+    max-width: 315px;
+}
+
 .logo img {
     width: 100%;
 }
@@ -51,6 +55,10 @@
 
 #calendar .card {
     margin-bottom: 30px;
+}
+
+#calendar .card img {
+    width: 100%;
 }
 
 /** custom button shadows: inactive background color made 15% darker using https://pinetools.com/darken-color **/

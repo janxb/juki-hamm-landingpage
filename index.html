@@ -6,7 +6,7 @@
         <title>JuKi Hamm</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="style.css?v=7481bdfef7c8c7518a181cbffcb99d73">
+        <link rel="stylesheet" href="style.css?v=0731feadff7c35a6f62f25cb495c890e">
     </head>
     <body>
         <div class="container" id="app" v-cloak>
@@ -19,27 +19,62 @@
                     </picture>
                 </div>
                 <div class="col-sm-9 vertical-center content">
-                    <div v-if="views.main">
-                        <a class="btn btn-secondary" role="button" href="https://www.ev-jugend-hamm.de/jugendkirche/"><i class="fa fa-church"></i> Jugendkirche Hamm</a>
-                        <a class="btn btn-info" role="button" href="#calendar"><i class="fa fa-calendar-alt"></i> Die nächsten Termine</a>
-                        <a class="btn btn-success" role="button" href="#whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Newsletter</a>
-                        <a class="btn btn-primary" role="button" href="https://www.ev-jugend-hamm.de/jugendreferat/jugendkirche-2/"><i class="fa fa-hands-helping"></i> Ansprechpartner</a>
-                        <a class="btn custom-btn-facebook" role="button" href="https://www.facebook.com/JugendkircheHamm/"><i class="fab fa-facebook-f"></i> Facebook</a>
-                        <a class="btn custom-btn-instagram" role="button" href="https://www.instagram.com/evjugend/"><i class="fab fa-instagram"></i> Instagram</a>
-                    </div>
-                    <div v-if="views.whatsapp" id="whatsapp">
-                        <p>Du willst immer und überall wissen, was als nächstes in der Jugendkirche ansteht?
-                            Dann abonniere unseren WhatsApp-Newsletter und erhalte regelmäßig aktuelle Infos!</p>
-                        <p>Sende uns einfach eine WhatsApp-Nachricht an die folgende Handynummer:</p>
-                        <h4 class="font-weight-bold">0163 792 1747</h4>
-                    </div>
-                    <div v-if="views.calendar" id="calendar">
-                        <div class="card text-center" v-for="event in calendar.recurringEvents">
-                            <div class="card-body">
-                                <h5 class="card-title">{{event.title}}</h5>
-                                <p class="card-text">{{event.description}} </p>
+                    <div>
+                        <a class="btn btn-link" href="#" @click="switchView($event, '')" v-if="!views.main">&laquo; Zurück zur Startseite</a>
+                        <div v-if="views.main">
+                            <a class="btn btn-secondary" role="button" href="https://www.ev-jugend-hamm.de/jugendkirche/"><i class="fa fa-church"></i> Jugendkirche Hamm</a>
+                            <a class="btn btn-info" role="button" href="#calendar"><i class="fa fa-calendar-alt"></i> Die nächsten Termine</a>
+                            <a class="btn btn-success" role="button" href="#whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Newsletter</a>
+                            <a class="btn btn-primary" role="button" href="https://www.ev-jugend-hamm.de/jugendreferat/jugendkirche-2/"><i class="fa fa-hands-helping"></i> Ansprechpartner</a>
+                            <a class="btn custom-btn-facebook" role="button" href="https://www.facebook.com/JugendkircheHamm/"><i class="fab fa-facebook-f"></i> Facebook</a>
+                            <a class="btn custom-btn-instagram" role="button" href="https://www.instagram.com/evjugend/"><i class="fab fa-instagram"></i> Instagram</a>
+                        </div>
+                        <div v-if="views.whatsapp" id="whatsapp" class="view">
+                            <p>Du willst immer und überall wissen, was als nächstes in der Jugendkirche ansteht?
+                                Dann abonniere unseren WhatsApp-Newsletter und erhalte regelmäßig aktuelle Infos!</p>
+                            <p>Sende uns einfach eine WhatsApp-Nachricht an die folgende Handynummer:</p>
+                            <h4 class="font-weight-bold"><a href="tel:+491637921747">0163 792 1747</a></h4>
+                        </div>
+                        <div v-if="views.calendar" id="calendar" class="view">
+                            <div class="recurringEvents">
+                                <div class="card text-center" v-for="event in calendar.recurringEvents">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{event.title}}</h5>
+                                        <p class="card-text">{{event.description}}</p>
+                                    </div>
+                                    <div class="card-footer text-muted"> mit {{event.responsible}}</div>
+                                </div>
                             </div>
-                            <div class="card-footer text-muted"> mit {{event.responsible}}</div>
+                            <div class="oneTimeEvents">
+                                <div class="card text-center" v-if="calendar.oneTimeEvents.length === 0">
+                                    <div class="card-body">
+                                        <h2 class="card-text text-bold"><i class="fas fa-spinner fa-spin"></i></h2>
+                                    </div>
+                                </div>
+                                <div class="card text-center" v-for="event in calendar.oneTimeEvents">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{event.title}}</h5>
+                                        <p class="card-text"><img class="pointer" :src="event.image" data-toggle="modal" :data-target="'#modal-'+event.id"></p>
+                                    </div>
+                                    <div class="modal" :id="'modal-'+event.id" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">{{event.title}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <a :href="event.image">
+                                                        <img :src="event.image">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,6 +84,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
-        <script src="script.js?v=b1cf3d46085ecdd2b0c593c082e7a535"></script>
+        <script src="script.js?v=14b85e7654351ead8900d012138c7f94"></script>
     </body>
 </html>
