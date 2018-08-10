@@ -22,7 +22,7 @@ $("document").ready(function () {
                     {
                         title: "Nachwuchs Musik und Technik",
                         description: "Du hast Lust im Jugendgottesdienst Musik zu machen, oder interessierst dich für Ton- und Lichttechnik? Dann bist du bei uns richtig! Wir sind jeden Donnerstag von 16-18 Uhr in der Jugendkirche und geben dir Raum zum Lernen und Ausprobieren.",
-                        responsible: "Tobias Pelmke und Ulrike Egermann"
+                        responsible: "Tobias Pälmke und Ulrike Egermann"
                     }
                 ]
             }
