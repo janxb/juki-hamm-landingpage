@@ -12,11 +12,18 @@
         display: flex;
         align-items: center;
     }
+
+    .logo {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
 }
 
 @media (max-width: 575px) {
     .logo img {
         margin-top: 10px;
+        padding: 0 20px;
     }
 }
 
@@ -40,6 +47,10 @@
 
 .content a i {
     margin-right: 5px;
+}
+
+#calendar .card {
+    margin-bottom: 30px;
 }
 
 /** custom button shadows: inactive background color made 15% darker using https://pinetools.com/darken-color **/
