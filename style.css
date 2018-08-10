@@ -40,12 +40,12 @@
     text-align: center;
 }
 
-.content a {
+.view.main a {
     display: block;
     margin-bottom: 10px;
 }
 
-.content a i {
+.view.main a i {
     margin-right: 5px;
 }
 
