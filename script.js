@@ -60,7 +60,7 @@ $("document").ready(function () {
                 }
             },
             fetchCalendarImages: function () {
-                var events = [];
+                var events = this.calendar.oneTimeEvents = [];
                 $.get('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/category/jugendkirche/', function (data) {
                     $("article", data).each(function (i, article) {
                         events.push({
@@ -76,7 +76,7 @@ $("document").ready(function () {
         },
         watch: {
             viewCalendar: function (viewCalendar) {
-                if (viewCalendar) {
+                if (viewCalendar && this.calendar.oneTimeEvents.length === 0) {
                     this.fetchCalendarImages();
                 }
             }
