@@ -1,5 +1,5 @@
 $("document").ready(function () {
-    var app = new Vue({
+    const app = new Vue({
         el: '#app',
         data: {
             views: {
@@ -23,13 +23,13 @@ $("document").ready(function () {
         },
         methods: {
             switchView: function (event, view) {
-                var viewHash = view;
+                let viewHash = view;
                 if (view === '') {
                     view = 'main';
                 }
 
                 if (this.views.hasOwnProperty(view)) {
-                    for (var tmpView in this.views) {
+                    for (let tmpView in this.views) {
                         if (this.views.hasOwnProperty(tmpView))
                             this.views[tmpView] = false;
                     }
@@ -45,12 +45,21 @@ $("document").ready(function () {
                 }
             },
             loadCalendarEvents: function () {
-                this.calendar.oneTimeEvents = events.oneTimeEvents;
                 this.calendar.recurringEvents = events.recurringEvents;
+                this.fetchLocalCalendarEvents();
                 this.prepareCalendarEventIds();
+                this.calendar.isLoaded = true;
+            },
+            fetchLocalCalendarEvents: function () {
+                this.calendar.oneTimeEvents = [];
+                events.oneTimeEvents.forEach(function (event) {
+                    let date = moment(event.date, 'DD.MM.YYYY [um] HH:mm [Uhr]');
+                    if (date.isAfter() || date.isSame(moment(), "day"))
+                        app.calendar.oneTimeEvents.push(event);
+                });
             },
             fetchRemoteCalendarEvents: function () {
-                var events = this.calendar.oneTimeEvents = [];
+                let events = this.calendar.oneTimeEvents = [];
                 $.get('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/category/jugendkirche/', function (data) {
                     $("article", data).each(function (i, article) {
                         events.push({
