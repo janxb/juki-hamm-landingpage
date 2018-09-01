@@ -9,5 +9,6 @@ function cachebreaker {
 	echo "Updated cachebreaker for file $1 : $hash"
 }
 
+cachebreaker events.js index.html
 cachebreaker script.js index.html
 cachebreaker style.css index.html
