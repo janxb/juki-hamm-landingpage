@@ -18,21 +18,6 @@ var events = {
     ],
     oneTimeEvents: [
         {
-            date: "02.09.2018 um 18:00 Uhr",
-            title: "Interreligiöses Friedensgebet im Lippepark"
-        },
-        {
-            date: "16.09.2018 um 17:00 Uhr",
-            title: "Konfi-Jugendgottesdienst",
-            description: "Die Jugendkirche bereitet gemeinsam mit einer Konfirmanden-Gruppe aus Bockum-Hövel den Gottesdienst vor.",
-            image: "https://www.ev-jugend-hamm.de/wp-content/uploads/2018/02/Plakat_16_09_18-e1535442979212.jpg"
-        },
-        {
-            date: "22.09.2018 um 17:00 Uhr",
-            title: "Konfi-Jugendgottesdienst",
-            description: "Die Jugendkirche bereitet gemeinsam mit einer Konfirmanden-Gruppe aus Hamm-Mitte den Gottesdienst vor."
-        },
-        {
             date: "28.09.2018 um 17:00 Uhr",
             title: "Interkulturelles Mitbringbuffet",
             image: "https://www.ev-jugend-hamm.de/wp-content/uploads/2018/08/Plakat_Interkulturelles-Essen-e1533894016801.jpg"
