@@ -38,11 +38,9 @@ $("document").ready(function () {
                 }
             },
             hashChanged: function () {
-                if (window.location.hash) {
-                    this.switchView(
-                        null, window.location.hash.replace('#', '')
-                    );
-                }
+                this.switchView(
+                    null, window.location.hash.replace('#', '')
+                );
             },
             loadCalendarEvents: function () {
                 this.calendar.recurringEvents = events.recurringEvents;
