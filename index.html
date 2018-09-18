@@ -56,7 +56,10 @@
                                         <h5 class="card-title">{{event.title}}</h5>
                                         <div class="card-text" v-if="event.description || event.image">
                                             <div v-if="event.description" :class="{'mb-1': event.image}">{{event.description}}</div>
-                                            <img v-if="event.image" class="pointer" :src="event.image" data-toggle="modal" :data-target="'#modal-'+event.id">
+                                            <img v-if="event.image" class="pointer" :class="{'mb-3': event.website}" :src="event.image" data-toggle="modal" :data-target="'#modal-'+event.id">
+                                            <div v-if="event.website">
+                                                <a :href="event.website" class="btn btn-info"><i class="fa fa-info-circle"></i> Mehr Infos anzeigen</a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div v-if="event.date" class="card-footer text-muted">{{event.date}}</div>
