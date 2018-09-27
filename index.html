@@ -48,12 +48,12 @@
                                 </div>
                             </div>
                             <div class="oneTimeEvents">
-                                <div class="card text-center" v-if="calendar.oneTimeEvents.length === 0">
+                                <div class="card text-center" v-if="!isCalendarLoaded">
                                     <div class="card-body">
                                         <h2 class="card-text text-bold"><i class="fas fa-spinner fa-spin"></i></h2>
                                     </div>
                                 </div>
-                                <div class="card text-center" v-for="event in calendar.oneTimeEvents">
+                                <div class="card text-center" v-for="event in calendar.oneTimeEvents" v-if="isCalendarLoaded">
                                     <div class="card-body">
                                         <h5 class="card-title">{{event.title}}</h5>
                                         <div class="card-text" v-if="event.description || event.image">
@@ -93,6 +93,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/de.js"></script>
         <script src="events.js?v=14a6a440d5a52fb29f5228ee73534f52"></script>
-        <script src="script.js?v=027b1f176720409d6f0af320cc6394a0"></script>
+        <script src="script.js?v=96876e4d06d2803aeddeffd4f725b12c"></script>
     </body>
 </html>
