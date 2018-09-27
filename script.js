@@ -65,35 +65,41 @@ $("document").ready(function () {
             },
             fetchRemoteCalendarEvents: function (page) {
                 if (page === undefined) page = 1;
-                $.get('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/veranstaltungen/?tribe_event_display=list&tribe_paged=' + page, function (data) {
-                    var events = [];
-                    $("div.type-tribe_events", data).each(function (i, article) {
-                        if ($(article).find("div.tribe-events-venue-details").text().trim().startsWith("Jugendkirche Hamm")) {
+                if (page < app.calendar.totalPages)
+                    app.fetchRemoteCalendarEvents(page + 1);
+                $.post('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/wp-admin/admin-ajax.php',
+                    {
+                        action: 'tribe_list',
+                        tribe_paged: page,
+                        tribe_event_display: 'list',
+                        featured: false
+                    }, function (data) {
+                        var events = [];
+                        $("div.type-tribe_events", data.html).each(function (i, article) {
+                            if ($(article).find("div.tribe-events-venue-details").text().trim().startsWith("Jugendkirche Hamm")) {
 
-                            var dateRaw = $(article).find("span.tribe-event-date-start").text().split("@");
-                            var date = moment(dateRaw[0] + " " + dateRaw[1], "MMMM DD HH:mm");
-                            if (date.isBefore()) date.add(1, 'years');
-                            var dateString = date.get('hours') === 0 ? date.format('DD.MM.YYYY') : date.format('DD.MM.YYYY [um] HH:mm [Uhr]');
+                                var dateRaw = $(article).find("span.tribe-event-date-start").text().split("@");
+                                var date = moment(dateRaw[0] + " " + dateRaw[1], "MMMM DD HH:mm");
+                                if (date.isBefore()) date.add(1, 'years');
+                                var dateString = date.get('hours') === 0 ? date.format('DD.MM.YYYY') : date.format('DD.MM.YYYY [um] HH:mm [Uhr]');
 
-                            var image = $(article).find("img").attr('src');
-                            if (image.toLowerCase().includes("jugendkirche_logo")) image = null;
+                                var image = $(article).find("img").attr('src');
+                                if (image.toLowerCase().includes("jugendkirche_logo")) image = null;
 
-                            events.push({
-                                image: image,
-                                title: $(article).find("a.tribe-event-url").text(),
-                                date: dateString,
-                                timestamp: date.unix()
-                            });
-                        }
+                                events.push({
+                                    image: image,
+                                    title: $(article).find("a.tribe-event-url").text(),
+                                    date: dateString,
+                                    timestamp: date.unix()
+                                });
+                            }
+                        });
+                        app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.concat(events);
+                        app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
+                        app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.slice(0, app.calendar.config.maxOneTimeEventCount);
+                        app.calendar.loadedPages += 1;
+                        app.prepareCalendarEventIds();
                     });
-                    if (page < app.calendar.totalPages)
-                        app.fetchRemoteCalendarEvents(page + 1);
-                    app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.concat(events);
-                    app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
-                    app.calendar.oneTimeEvents = app.calendar.oneTimeEvents.slice(0, app.calendar.config.maxOneTimeEventCount);
-                    app.calendar.loadedPages += 1;
-                    app.prepareCalendarEventIds();
-                });
             },
             prepareCalendarEventIds: function () {
                 this.calendar.oneTimeEvents.forEach(function (event) {
