@@ -9,9 +9,9 @@ $("document").ready(function () {
             },
             calendar: {
                 config: {
-                    maxOneTimeEventCount: 10
+                    maxOneTimeEventCount: 10,
+                    maxRemotePagesCount: 2
                 },
-                totalPages: 0,
                 loadedPages: 0,
                 isViewLoaded: false,
                 recurringEvents: [],
@@ -23,7 +23,7 @@ $("document").ready(function () {
                 return this.views.calendar;
             },
             isCalendarLoaded: function () {
-                return this.calendar.totalPages > 0 && this.calendar.loadedPages === this.calendar.totalPages;
+                return this.calendar.loadedPages === this.calendar.config.maxRemotePagesCount;
             }
         },
         methods: {
@@ -51,7 +51,6 @@ $("document").ready(function () {
                 this.calendar.recurringEvents = events.recurringEvents;
                 //this.fetchLocalCalendarEvents();
                 this.calendar.oneTimeEvents = [];
-                this.calendar.totalPages = 2;
                 this.fetchRemoteCalendarEvents();
                 this.calendar.isViewLoaded = true;
             },
@@ -65,7 +64,7 @@ $("document").ready(function () {
             },
             fetchRemoteCalendarEvents: function (page) {
                 if (page === undefined) page = 1;
-                if (page < app.calendar.totalPages)
+                if (page < app.calendar.config.maxRemotePagesCount)
                     app.fetchRemoteCalendarEvents(page + 1);
                 $.post('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/wp-admin/admin-ajax.php',
                     {
