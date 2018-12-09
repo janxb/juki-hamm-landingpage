@@ -64,8 +64,8 @@ $("document").ready(function () {
 			},
 			fetchRemoteCalendarEvents: function (page) {
 				if (page === undefined) page = 1;
-				if (page < app.calendar.config.maxRemotePagesCount)
-					app.fetchRemoteCalendarEvents(page + 1);
+				if (page < this.calendar.config.maxRemotePagesCount)
+					this.fetchRemoteCalendarEvents(page + 1);
 				$.post('https://cors-anywhere.herokuapp.com/' + 'https://www.ev-jugend-hamm.de/wp-admin/admin-ajax.php',
 					{
 						action: 'tribe_list',
@@ -106,19 +106,17 @@ $("document").ready(function () {
 				});
 			}
 		},
-		watch: {
-			viewCalendar: function (viewCalendar) {
-				if (viewCalendar && !this.calendar.isViewLoaded) {
-					this.loadCalendarEvents();
-				}
-			}
-		},
+		watch: {},
 		mounted() {
 			if (!window.location.hash) {
 				window.location.hash = 'dummy';
 				window.location.hash = '';
 			}
 			this.hashChanged();
+
+			if (!this.calendar.isViewLoaded) {
+				this.loadCalendarEvents();
+			}
 		}
 	});
 
