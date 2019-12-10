@@ -4,7 +4,6 @@ $("document").ready(function () {
 		data: {
 			views: {
 				main: true,
-				whatsapp: false,
 				calendar: false
 			},
 			calendar: {
