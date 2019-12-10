@@ -7,5 +7,5 @@ addons:
 os: linux
 language: generic
 script:
-  - lftp -e "mirror -Rev --exclude-glob .git* --exclude .git/ . ./web/data; quit" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST
+  - lftp -e "set ssl:verify-certificate no; mirror -Rev --exclude-glob .git* --exclude .git/ . ./web/data; quit" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST
   - curl --silent $POST_DEPLOYMENT_URL > /dev/null
